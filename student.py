@@ -1,3 +1,5 @@
+import csv
+
 students = []
 
 def add_student():
@@ -110,9 +112,42 @@ def delete_student():
 
 
 def save_to_csv():
-    pass
 
+    with open("students.csv", "w", newline="") as file:
+
+        writer = csv.writer(file)
+
+        writer.writerow(["ID", "Name", "Age", "Marks"])
+
+        for student in students:
+            writer.writerow([
+                student["id"],
+                student["name"],
+                student["age"],
+                student["marks"]
+            ])
+
+    print("Students saved successfully.")
+    
 
 def read_from_csv():
-    pass
+
+    with open("students.csv", "r") as file:
+
+        reader = csv.reader(file)
+
+        next(reader)
+
+        for row in reader:
+
+            student = {
+                "id": int(row[0]),
+                "name": row[1],
+                "age": int(row[2]),
+                "marks": int(row[3])
+            }
+
+            students.append(student)
+
+    print("Students loaded successfully.")
     
